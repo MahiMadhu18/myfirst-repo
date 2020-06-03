@@ -1,24 +1,27 @@
 #!/usr/bin/env bash
 # File: guessinggame.sh
-ls -lrt | wc -l
-if count = incorrect
-echo "guess was either too low or too high"
-else 
-echo "congratulated the guess is correct"
-function addseq2 {
-  local sum=0
+echo "---GUESSING GAME---"
+echo "Enter your guess: "
+read guess
 
-  for element in $@
-  do
-    let sum=sum+$element
-  done
-
-  echo $sum
+function get_file {
+	local number=$(ls -l | wc -l)-1
+	echo $number
 }
-count=3
 
-while [[ $count -gt 0 ]]
+correct=$(get_file)
+
+while [[ $guess -ne $correct ]]
 do
-  echo "count is equal to $count"
-  let count=$count+1              # We only changed this line!
+	if [[ $guess -gt $correct ]]
+	then
+		echo "Sorry, your guess was too high..."
+	else 
+		echo "Sorry, your guess was too low..."
+	fi
+	echo
+	echo "Try again: "
+	read guess
 done
+
+echo "Congratulations! You guessed the right number!"
